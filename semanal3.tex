@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{bussproofs}
+\usepackage{amsmath}
 
 \newcommand{\Axi}[1]{\AxiomC{\texttt{#1}}}
 \newcommand{\BInf}[1]{\BinaryInfC{\texttt{#1}}}
@@ -12,6 +13,10 @@
 \newcommand{\Raa}{$\Rightarrow$\;\,}
 \newcommand{\raa}{$\rightarrow$\;\,}
 \newenvironment{ttt}{\par\ttfamily}{\par}
+
+\newcommand{\pr}{::=}
+\newcommand{\nt}[1]{\langle #1 \rangle}
+\newcommand{\gr}{\;|\;}
 
 \begin{document}
   \begin{center}
@@ -32,7 +37,7 @@
           
           Sintaxis abstracta
           \begin{center}
-            \includegraphics[width=10cm]{asa1.png}
+            \includegraphics[width=9.4cm]{asa1.png}
           \end{center}
           \texttt{Sub( Add( Num(20) Num(3) ) Sub( Num(-18) Add( Num(50) Num(20) ) ) )}
 
@@ -65,7 +70,7 @@
 
           Sintaxis abstracta
           \begin{center}
-            \includegraphics[width=6.1cm]{asa2.png}
+            \includegraphics[width=6cm]{asa2.png}
           \end{center}
           \texttt{Not( Add( Num(1) Sub( Num(3) Add( Num(-8) Num(1) ) ) ) )}
 
@@ -80,7 +85,7 @@
                 \BInf{Add(Num(-8) Num(1)) \Raa Num(-7)}
               \BInf{Sub(Num(3) Add(Num(-8) Num(1))) \Raa Num(10)}
             \BInf{Add(Num(1) Sub(Num(3) Add(Num(-8) Num(1)))) \Raa Num(11)}
-            \UInf{Not(Add(Num(1) Sub(Num(3) Add(Num(-8) Num(1))))) \Raa Boolean(False)}
+            \UInf{Not(Add(Num(1) Sub(Num(3) Add(Num(-8) Num(1))))) \Raa Bool(False)}
           \end{prooftree}
           }
 
@@ -90,7 +95,7 @@
             Not( Add( Num(1) Sub( Num(3) Num(-7) ) ) ) \raa\\
             Not( Add( Num(1) Num(10) ) ) \raa\\
             Not( Num(11) ) \raa\\
-            Boolean(True) \raa Boolean(True)
+            Bool(True) \raa Bool(True)
           \end{ttt}
 
         \item \texttt{(not (not (+ 3 5)))}
@@ -106,16 +111,16 @@
             \Axi{Num(3) \Raa Num(3)}
             \Axi{Num(5) \Raa Num(5)}
             \BInf{Add( Num(3) Num(5) ) \Raa Num(8)}
-            \UInf{Not( Add( Num(3) Num(5) ) ) \Raa Boolean(False)}
-            \UInf{Not( Not( Add( Num(3) Num(5) ) ) ) \Raa Boolean(True)}
+            \UInf{Not( Add( Num(3) Num(5) ) ) \Raa Bool(False)}
+            \UInf{Not( Not( Add( Num(3) Num(5) ) ) ) \Raa Bool(True)}
           \end{prooftree}
 
           Semántica estructural
           \begin{ttt}
             Not( Not( Add( Num(3) Num(5) ) ) ) \raa\\
             Not( Not( Num(8) ) ) \raa\\
-            Not( Boolean(False) ) \raa\\
-            Boolean(True) \raa Boolean(True)
+            Not( Bool(False) ) \raa\\
+            Bool(True) \raa Bool(True)
           \end{ttt}
 
       \end{enumerate}
@@ -162,6 +167,167 @@ error: División entre cero
 error: Raíz negativa
           \end{verbatim}
       \end{enumerate}
+
+      Nueva gramática
+      \begin{align*}
+        &\nt{Expr} \pr \nt{Bool} \gr \nt{Num}\\
+        &\qquad\qquad\quad \gr (+\ \nt{Expr}\ \ \nt{Expr})\\
+        &\qquad\qquad\quad \gr (-\ \nt{Expr}\ \ \nt{Expr})\\
+        &\qquad\qquad\quad \gr (*\ \nt{Expr}\ \ \nt{Expr})\\
+        &\qquad\qquad\quad \gr (/\ \nt{Expr}\ \ \nt{Expr})\\
+        &\qquad\qquad\quad \gr (add1 \ \nt{Expr})\\
+        &\qquad\qquad\quad \gr (sub1 \ \nt{Expr})\\
+        &\qquad\qquad\quad \gr (sqrt \ \nt{Expr})\\
+        &\nt{Bool} \pr \#t \gr \#f\\
+        &\nt{Int} \pr \nt{N} \gr -\nt{M}\\
+        &\nt{D} \pr 1 \gr 2 \gr 3 \gr 4 \gr 5 \gr 6 \gr 7 \gr 7 \gr 8 \gr 9\\
+        &\nt{N} \pr 0 \gr \nt{D}\{\nt{N}\}\\
+        &\nt{M} \pr \nt{D}\{\nt{N}\}
+      \end{align*}
+
+      Nueva sintaxis abstracta\\
+      Añadimos lo siguiente a nuesta sintaxis abstracta
+      \begin{prooftree}
+        \Axi{i:ASA}
+        \Axi{d:ASA}
+        \BInf{Mult(i, d):ASA}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{i:ASA}
+        \Axi{d:ASA}
+        \BInf{Div(i, d):ASA}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c:ASA}
+        \UInf{Add1(c):ASA}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c:ASA}
+        \UInf{Sub1(c):ASA}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c:ASA}
+        \UInf{Sqrt(c):ASA}
+      \end{prooftree}
+
+      Nueva semántica natural\\
+      Añadimos lo siguiente a nuestra semántica natural
+
+      \begin{prooftree}
+        \Axi{i \Raa Num(i')}
+        \Axi{d \Raa Num(d')}
+        \BInf{Mult(i, d) \Raa Num(i' * d')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{i \Raa Num(i')}
+        \Axi{d \Raa Num(0)}
+        \BInf{Div(i, d) \Raa error: División entre 0}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{i \Raa Num(i')}
+        \Axi{d \Raa Num(d')}
+        \BInf{Div(i, d) \Raa Num(i' / d')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \Raa Num(c')}
+        \UInf{Add1(c) \Raa Num(c' + 1)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \Raa Num(c')}
+        \UInf{Sub1(c) \Raa Num(c' - 1)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \Raa Num(c')}
+        \Axi{c' < 0}
+        \UInf{Sqrt(c) \Raa error: Raíz negativa}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \Raa Num(c')}
+        \UInf{Sqrt(c) \Raa Num($\sqrt{\text{c'}}$)}
+      \end{prooftree}
+
+      Nueva semántica estructural\\
+      Añadimos lo siguiente a nuestra semántica estructural
+
+      \begin{prooftree}
+        \Axi{i \raa i'}
+        \UInf{Mult(i, d) \raa Mult(i', d)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{d \raa d'}
+        \UInf{Mult(Num(i), d) \raa Mult(Num(i), d')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{-}
+        \UInf{Mult(Num(i), Num(d)) \raa Num(i * d)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{i \raa i'}
+        \UInf{Div(i, d) \raa Div(i', d)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{d \raa d'}
+        \UInf{Div(Num(i), d) \raa Div(Num(i), d')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{-}
+        \UInf{Div(Num(i), Num(0)) \raa error: División entre 0}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{-}
+        \UInf{Div(Num(i), Num(d)) \raa Num(i / d)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \raa c'}
+        \UInf{Add1(c) \raa Add1(c')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{-}
+        \UInf{Add1(Num(c)) \raa Num(c + 1)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \raa c'}
+        \UInf{Sub1(c) \raa Sub1(c')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{-}
+        \UInf{Sub1(Num(c)) \raa Num(c - 1)}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c \raa c'}
+        \UInf{Sqrt(c) \raa Sqrt(c')}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{c < 0}
+        \UInf{Sqrt(Num(c)) \raa error: Raíz negativa}
+      \end{prooftree}
+
+      \begin{prooftree}
+        \Axi{-}
+        \UInf{Sqrt(Num(c)) \raa Num($\sqrt{\text{c}}$)}
+      \end{prooftree}
 
   \end{enumerate}
 \end{document}
