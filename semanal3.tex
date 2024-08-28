@@ -6,6 +6,10 @@
 \usepackage{graphicx}
 \usepackage{bussproofs}
 
+\newcommand{\Axi}[1]{\AxiomC{\texttt{#1}}}
+\newcommand{\BInf}[1]{\BinaryInfC{\texttt{#1}}}
+\newcommand{\Raa}{$\Rightarrow$\;\,}
+
 \begin{document}
   \begin{center}
     {\Large Evaluación semanal 3}\\
@@ -30,9 +34,20 @@
           \texttt{Sub( Add( Num(20) Num(3) ) Sub( Num(-18) Add( Num(50) Num(20) ) ) )}
 
           Semántica natural
+          {\tiny
           \begin{prooftree}
-            
+            \Axi{Num(20) \Raa Num(20)} \Axi{Num(3) \Raa Num(3)}
+            \BInf{Add(Num(20) Num(3)) \Raa Num(23)}
+            \Axi{Num(-18) \Raa Num(-18)} 
+              
+              \Axi{Num(50) \Raa Num(50)} \Axi{Num(20) \Raa Num(20)}
+              \BInf{Add(Num(50) Num(20)) \Raa Num(70)}
+
+            \BInf{Sub(Num(-18) Add(Num(50) Num(20))) \Raa Num(-88)}
+
+            \BInf{Sub(Add(Num(20) Num(3)) Sub(Num(-18) Add(Num(50) Num(20)))) \Raa Num(111)}
           \end{prooftree}
+          }
 
         \item \texttt{(not (+ 1 (- 3 (+ -8 1))))}
         \item \texttt{(not (not (+ 3 5)))}
