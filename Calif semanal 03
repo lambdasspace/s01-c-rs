@@ -1,0 +1,44 @@
+Primera parte
+a):
+
+  Sintaxis abstracta:
+  La representación en sintaxis abstracta es correcta. Capturaste bien la estructura de la expresión.
+  Semántica natural:
+  La evaluación sigue las reglas correctamente y llega al resultado esperado. 
+  Semántica estructural:
+  El proceso de reducción está bien descrito. El resultado final es correcto.
+  Puntuación: 10/10 
+
+b):
+
+  Sintaxis abstracta:
+  Convertiste la expresión correctamente en su forma abstracta. 
+  Semántica natural:
+  La evaluación sigue correctamente las reglas.
+  Semántica estructural:
+  Cada transición es clara y llega al resultado correcto.
+  Puntuación: 10/10 
+
+c):
+  
+  Sintaxis abstracta:
+  La representación de la doble negación y la suma en sintaxis abstracta es correcta.
+  Semántica natural:
+  La evaluación es precisa y llega al resultado correcto, siguiendo las reglas establecidas.
+  Semántica estructural:
+  El proceso de reducción está bien descrito.
+  Puntuación: 10/10 
+
+Segunda Parte
+
+  Grámatica libre de contexto modificada (en notación EBNF):
+  La gramática está bien formulada Puntuación: 4/4
+  Nuevas reglas de sintaxis abstracta:
+  Las reglas están bien formuladas. La integración de las nuevas operaciones es clara. Puntuación: 4/4
+  Nuevas reglas de semántica natural y estructural:
+  Las reglas están bien formuladas, y consideraste adecuadamente todos los casos relevantes. La explicación es clara. Puntuación: 2/2 
+
+Calificación Final:
+Parte 1: 30/30
+Parte 2: 10/10
+Total: 40/40 = 10 bien hecho!
